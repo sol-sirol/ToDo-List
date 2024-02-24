@@ -2,7 +2,7 @@ import { MdOutlineDoneAll } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { ImCancelCircle } from "react-icons/im";
 import { Todo } from "./model/todoSlice";
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch } from "../../shared/hooks";
 import { todoModel } from "./";
 
 type Props = {

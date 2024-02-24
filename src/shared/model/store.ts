@@ -1,9 +1,9 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import { todoModel } from "../entities/todo";
+import { todoModel } from "../../entities/todo";
 
 export const store = configureStore({
   reducer: {
-    todos: todoModel.default, 
+    todos: todoModel.todoReducer, 
   },
 });
 

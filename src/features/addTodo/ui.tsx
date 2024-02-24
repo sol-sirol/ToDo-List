@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch } from "../../shared/hooks";
 import { todoModel } from "../../entities/todo/";
 
 export const NewTodoForm = () => {

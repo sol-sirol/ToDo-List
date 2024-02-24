@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ToDoCard } from "../entities/todo";
 import { NewTodoForm } from "../features/addTodo";
-import { useAppSelector } from "./hooks";
+import { useAppSelector } from "../shared/hooks";
 
 enum SortTodo {
   ALL,

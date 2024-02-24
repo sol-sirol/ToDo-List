@@ -1,7 +1,3 @@
-/* *:focus{
-  outline: none;
-} */
-
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -72,7 +68,6 @@ textarea {
 
     &:hover {
       background-color: #bc22ad;
-
     }
   }
 
@@ -109,19 +104,12 @@ textarea {
       outline: 2px solid #fff;
     }
 
-    /* &:focus {
-      outline: 2px solid #fff;
-    } */
-
     &:hover {
       background-color: #bc22ad;
     }
     &:not(:last-child) {
       margin-right: 1rem;
     }
-  }
-  &__list {
-    /* margin-left: 5%; */
   }
 }
 
@@ -134,10 +122,6 @@ textarea {
   gap: 1rem;
 
   list-style: none;
-
-  &__item {
-    /* flex: 1 1 auto; */
-  }
 }
 
 .todo-card {
@@ -172,10 +156,6 @@ textarea {
     display: flex;
     gap: 8px;
     justify-content: end;
-
-    /* position: absolute;
-    bottom: 1rem;
-    right: 1rem; */
   }
 
   &__button {
@@ -188,12 +168,10 @@ textarea {
     align-items: center;
     justify-content: center;
     border: none;
-    /* margin: 0 0.6rem; */
     font-size: 1rem;
     cursor: pointer;
     color: #333;
     background-color: transparent;
-    /* border: 2px solid #df2ccd; */
 
     &_color {
       &_green {
@@ -250,9 +228,6 @@ textarea {
   gap: 4px;
   background-color: #df2ccd;
   border: 2px solid #fff;
-  /* border: none; */
-
-  /* box-shadow: 1px 1px 8px #bc22ad; */
   color: #fff;
 
   font-size: 0.8rem;
@@ -263,15 +238,3 @@ textarea {
     background-color: #bc22ad;
   }
 }
-
-/* .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
- */
