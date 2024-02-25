@@ -11,9 +11,7 @@ type Props = {
 };
 
 export const ToDoCard = ({ className, todo }: Props) => {
-  const dispatch = useAppDispatch()
-
-
+  const dispatch = useAppDispatch();
 
   return (
     <div className={`${className ? className : ""} todo-card`}>
@@ -42,7 +40,10 @@ export const ToDoCard = ({ className, todo }: Props) => {
       </div>
 
       {todo.completed && (
-        <button className="completed" onClick={() => dispatch(todoModel.toggleComplete(todo.id))}>
+        <button
+          className="completed"
+          onClick={() => dispatch(todoModel.toggleComplete(todo.id))}
+        >
           Done <ImCancelCircle />
         </button>
       )}

@@ -1,4 +1,8 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+export type QueryConfig = {
+  completed?: boolean;
+};
 
 export type Todo = {
   id: string;
@@ -7,10 +11,12 @@ export type Todo = {
 };
 
 type TodosState = {
+  queryConfig?: QueryConfig;
   list: Todo[];
 };
 
 const initialState: TodosState = {
+  queryConfig: {},
   list: [
     {
       id: "1",
@@ -45,10 +51,28 @@ const initialState: TodosState = {
   ],
 };
 
+// export const fetchTodos = createAsyncThunk<Todo[], void, {rejectValue: string}>(
+//   'todos/fetchTodos',
+//   async (_, { rejectWithValue }) => {
+//     const response = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=10');
+
+//     if (!response.ok) {
+//       return rejectWithValue('Server Error!');
+//     }
+
+//     const data = await response.json();
+
+//     return data;
+//   }
+// );
+
 export const todoSlice = createSlice({
   name: "todoSlice",
   initialState,
   reducers: {
+    setQueryConfig: (state, { payload }: PayloadAction<QueryConfig>) => {
+      state.queryConfig = payload;
+    },
     addTodo(state, action: PayloadAction<string>) {
       state.list.push({
         id: new Date().toISOString(),
@@ -68,5 +92,6 @@ export const todoSlice = createSlice({
   },
 });
 
-export const { addTodo, toggleComplete, removeTodo } = todoSlice.actions;
-export const todoReducer = todoSlice.reducer
+export const { setQueryConfig, addTodo, toggleComplete, removeTodo } =
+  todoSlice.actions;
+export const todoReducer = todoSlice.reducer;

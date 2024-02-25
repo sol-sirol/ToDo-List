@@ -3,18 +3,19 @@ import { useAppDispatch } from "../../shared/hooks";
 import { todoModel } from "../../entities/todo/";
 
 export const NewTodoForm = () => {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const [value, setValue] = useState("");
 
-  const handleAction = () => {
+  const handleAction = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
     if (value.trim().length) {
       dispatch(todoModel.addTodo(value));
-      setValue('');
+      setValue("");
     }
   };
 
   return (
-    <div className="todo-form">
+    <form className="todo-form">
       <input
         placeholder="New todo"
         value={value}
@@ -23,9 +24,9 @@ export const NewTodoForm = () => {
         className="todo-form__input"
       />
 
-      <button onClick={handleAction} className="todo-form__button">
+      <button onClick={(e) => handleAction(e)} className="todo-form__button">
         +
       </button>
-    </div>
+    </form>
   );
 };
