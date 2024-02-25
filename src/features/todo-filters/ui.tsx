@@ -11,13 +11,13 @@ export const TodoFilters = () => {
     dispatch(todoModel.setQueryConfig(config));
 
   return (
-    <div className="todo-block__sort-wrapper">
+    <div className="sort-todos">
       {filtersList.map(({ title, id, config }) => (
         <button
           key={id}
-          className={`todo-block__button ${
+          className={`sort-todos__button ${
             queryConfig?.completed === config.completed
-              ? "todo-block__button_active"
+              ? "sort-todos__button_active"
               : ""
           }`}
           onClick={() => onFilterClick(getFilterById(id).config)}

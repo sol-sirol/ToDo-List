@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAppDispatch } from "../../shared/hooks";
-import { todoModel } from "../../entities/todo/";
+import { todoModel } from "../../entities/todo";
 
 export const NewTodoForm = () => {
   const dispatch = useAppDispatch();
@@ -9,7 +9,7 @@ export const NewTodoForm = () => {
   const handleAction = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     if (value.trim().length) {
-      dispatch(todoModel.addTodo(value));
+      dispatch(todoModel.addNewTodo(value));
       setValue("");
     }
   };

@@ -1,4 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  addTodoAsync,
+  fetchTodoList,
+  removeTodoAsync,
+  toggleCompleteAsync,
+} from "../api";
 
 export type QueryConfig = {
   completed?: boolean;
@@ -13,58 +19,40 @@ export type Todo = {
 type TodosState = {
   queryConfig?: QueryConfig;
   list: Todo[];
+  status: "idle" | "loading" | "failed";
 };
 
 const initialState: TodosState = {
   queryConfig: {},
-  list: [
-    {
-      id: "1",
-      title: "First",
-      completed: false,
-    },
-    {
-      id: "2",
-      title: "Second",
-      completed: true,
-    },
-    {
-      id: "3",
-      title: "Third",
-      completed: false,
-    },
-    {
-      id: "4",
-      title: "Find the page at https://github.com/sol-sirol",
-      completed: false,
-    },
-    {
-      id: "5",
-      title: "Rate my pinned projects",
-      completed: false,
-    },
-    {
-      id: "6",
-      title: "To hire me",
-      completed: false,
-    },
-  ],
+  list: [],
+  status: "idle",
 };
 
-// export const fetchTodos = createAsyncThunk<Todo[], void, {rejectValue: string}>(
-//   'todos/fetchTodos',
-//   async (_, { rejectWithValue }) => {
-//     const response = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=10');
-
-//     if (!response.ok) {
-//       return rejectWithValue('Server Error!');
-//     }
-
-//     const data = await response.json();
-
-//     return data;
-//   }
-// );
+export const fetchTodos = createAsyncThunk("todos/fetchTodos", async () => {
+  const response = await fetchTodoList();
+  return response.data;
+});
+export const addNewTodo = createAsyncThunk(
+  "todos/addNewTodo",
+  async (todoTitle: string) => {
+    const response = await addTodoAsync(todoTitle);
+    return response.data;
+  }
+);
+export const toggleComplete = createAsyncThunk(
+  "todos/toggleComplete",
+  async (todoId: string) => {
+    const response = await toggleCompleteAsync(todoId);
+    return response.data;
+  }
+);
+export const removeTodo = createAsyncThunk(
+  "todos/removeTodo",
+  async (todoId: string) => {
+    const response = await removeTodoAsync(todoId);
+    return response.data;
+  }
+);
 
 export const todoSlice = createSlice({
   name: "todoSlice",
@@ -73,25 +61,47 @@ export const todoSlice = createSlice({
     setQueryConfig: (state, { payload }: PayloadAction<QueryConfig>) => {
       state.queryConfig = payload;
     },
-    addTodo(state, action: PayloadAction<string>) {
-      state.list.push({
-        id: new Date().toISOString(),
-        title: action.payload,
-        completed: false,
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchTodos.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchTodos.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.list = action.payload;
+      })
+      .addCase(fetchTodos.rejected, (state) => {
+        state.status = "failed";
+      })
+      .addCase(addNewTodo.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(addNewTodo.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.list.push(action.payload);
+      })
+      .addCase(toggleComplete.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(toggleComplete.fulfilled, (state, action) => {
+        state.status = "idle";
+        const toggledTodo = state.list.find(
+          (todo) => todo.id === action.payload
+        );
+        if (toggledTodo) {
+          toggledTodo.completed = !toggledTodo.completed;
+        }
+      })
+      .addCase(removeTodo.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(removeTodo.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.list = state.list.filter((todo) => todo.id !== action.payload);
       });
-    },
-    toggleComplete(state, action: PayloadAction<string>) {
-      const toggledTodo = state.list.find((todo) => todo.id === action.payload);
-      if (toggledTodo) {
-        toggledTodo.completed = !toggledTodo.completed;
-      }
-    },
-    removeTodo(state, action: PayloadAction<string>) {
-      state.list = state.list.filter((todo) => todo.id !== action.payload);
-    },
   },
 });
 
-export const { setQueryConfig, addTodo, toggleComplete, removeTodo } =
-  todoSlice.actions;
+export const { setQueryConfig } = todoSlice.actions;
 export const todoReducer = todoSlice.reducer;
