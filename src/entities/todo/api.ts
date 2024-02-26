@@ -31,13 +31,17 @@ const defaultTodoList = [
   },
 ];
 
-// A mock functions to mimic making an async request for data
-
+/**
+ * A mock function to mimic making an async request for data
+ */
 export const fetchTodoList = () => {
   return new Promise<{ data: typeof defaultTodoList }>((resolve) =>
     setTimeout(() => resolve({ data: defaultTodoList }), 1500)
   );
 };
+/**
+ * A mock function to mimic making an async request for data
+ */
 export const addTodoAsync = (todoTitle: string) => {
   return new Promise<{ data: (typeof defaultTodoList)[0] }>((resolve) => {
     const newTodo = {
@@ -48,11 +52,17 @@ export const addTodoAsync = (todoTitle: string) => {
     setTimeout(() => resolve({ data: newTodo }), 500);
   });
 };
+/**
+ * A mock function to mimic making an async request for data
+ */
 export const toggleCompleteAsync = (todoId: string) => {
   return new Promise<{ data: string }>((resolve) => {
     setTimeout(() => resolve({ data: todoId }), 500)
   });
 };
+/**
+ * A mock function to mimic making an async request for data
+ */
 export const removeTodoAsync = (todoId: string) => {
   return new Promise<{ data: string }>((resolve) => {
     setTimeout(() => resolve({ data: todoId }), 500)

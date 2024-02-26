@@ -50,13 +50,16 @@ textarea {
   resize: none;
 }
 
-.main-container {
-  min-height: 100vh;
+.full-screen-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 
-  text-align: center;
-  padding: 3rem 0;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   background: linear-gradient(
     149deg,
@@ -68,29 +71,8 @@ textarea {
   animation: gradient 4s infinite linear;
   background-size: 400%;
 
-  &__loader-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: linear-gradient(
-      149deg,
-      rgba(24, 187, 156, 0.3) 0%,
-      rgba(106, 57, 175, 0.3) 42%,
-      rgba(187, 24, 148, 0.3) 72%,
-      rgba(115, 53, 134, 0.3) 100%
-    );
-    animation: gradient 4s infinite linear;
-    background-size: 400%;
-  }
-
-  &__loader {
+  &__spinner {
     width: 48px;
     height: 48px;
     border-radius: 50%;
@@ -114,6 +96,25 @@ textarea {
       animation: rotation 0.5s linear infinite reverse;
     }
   }
+}
+
+.main-container {
+  min-height: 100vh;
+
+  text-align: center;
+  padding: 3rem 0;
+  display: flex;
+  flex-direction: column;
+
+  background: linear-gradient(
+    149deg,
+    rgba(24, 187, 156, 0.3) 0%,
+    rgba(106, 57, 175, 0.3) 42%,
+    rgba(187, 24, 148, 0.3) 72%,
+    rgba(115, 53, 134, 0.3) 100%
+  );
+  animation: gradient 4s infinite linear;
+  background-size: 400%;
 }
 
 .todo-form {

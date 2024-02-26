@@ -2,6 +2,7 @@ import { NewTodoForm } from "../features/add-todo";
 import { TodoFilters } from "../features/todo-filters";
 import { TodoList } from "../features/todo-list";
 import { useAppSelector } from "../shared/hooks";
+import { FullScreenLoader } from "../shared/ui/loaders";
 
 export const App = () => {
   const status = useAppSelector((state) => state.todos.status);
@@ -9,18 +10,14 @@ export const App = () => {
   return (
     <div className="main-container">
       <h1>Todo List</h1>
-      <NewTodoForm></NewTodoForm>
+      <NewTodoForm />
 
       <div className="todos-block">
         <TodoFilters />
-        <TodoList></TodoList>
+        <TodoList />
       </div>
 
-      {status === "loading" && (
-        <div className="main-container__loader-wrapper">
-          <div className="main-container__loader"></div>
-        </div>
-      )}
+      {status === "loading" && <FullScreenLoader />}
     </div>
   );
 };
